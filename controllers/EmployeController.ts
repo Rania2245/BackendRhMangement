@@ -1,15 +1,15 @@
 import { Request, Response, NextFunction } from "express";
 import UserService from "../services/UserService";
+import EmployeService from "../services/EmployeService";
 
-export const userController = {
+export const EmployeController = {
   getAll: (_req: Request, res: Response, _next: NextFunction) => {
-
-    const users = UserService.getAll();
-    res.send(users);
+    const Employes= EmployeService.getAll();
+    res.send(Employes);
   },
   getOne: async (req: Request, res: Response, next: NextFunction) => {
-    const { params } = req;
-    const user = await UserService.getOne(parseInt(params.id))
+    const {params} = req;
+    const user = await EmployeService.getOne(parseInt(params.id))
     res.send(user);
   },
 };
