@@ -6,7 +6,6 @@ import {
   BelongsTo,
 } from "sequelize-typescript";
 import Employe from "./Employe";
-import sequelize from "../database"
 
 
 @Table
@@ -17,9 +16,9 @@ export default class CalendrierEmp extends Model {
   heureArriv!: Date;
   @Column
   heureDep!: Date;
-  @Column
+  @Column({defaultValue: 0})
   heureSup!: number;
-  @Column
+  @Column({defaultValue: 0})
   heureConge!: number;
 
   @ForeignKey(() => Employe)

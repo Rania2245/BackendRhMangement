@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import UserService from "../services/UserService";
+
 import EmployeService from "../services/EmployeService";
 
 export const EmployeController = {

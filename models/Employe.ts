@@ -1,21 +1,32 @@
-import { Table, Column, Model, HasOne, HasMany } from "sequelize-typescript";
+import { Table, Column, Model, HasOne, HasMany, ForeignKey, DataType, BelongsTo } from "sequelize-typescript";
 import CalendrierEmp from "./CalendrierEmp";
-import sequelize from "../database"
-
 
 @Table({})
 export default class Employe extends Model {
-  @Column
+  @Column(DataType.STRING)
+  email!: string;
+
+  @Column(DataType.STRING)
+  password!: string;
+
+  @Column(DataType.STRING)
   nom!: string;
-  @Column
+
+  @Column(DataType.STRING)
   prenom!: string;
-  @Column
+
+  @Column(DataType.STRING)
   poste!: string;
-  @Column
+
+  @Column(DataType.STRING)
   adresse!: string;
-  @Column
+
+  @Column(DataType.STRING)
   departement!: string;
 
   @HasMany(() => CalendrierEmp)
   calendrier!: CalendrierEmp[];
+
+  @Column(DataType.STRING)
+  role!: 'employe' | 'rh'
 }
