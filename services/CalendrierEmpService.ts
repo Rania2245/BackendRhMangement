@@ -1,5 +1,4 @@
 import { Op } from "sequelize";
-import CalendrierEmp from "../models/CalendrierEmp";
 import CalandrierEmp from "../models/CalendrierEmp";
 
 const getEmployeCalendarFromDate = async (employeId: number, date?: Date) => {
