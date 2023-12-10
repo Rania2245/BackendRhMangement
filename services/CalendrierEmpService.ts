@@ -43,7 +43,7 @@ const CalandrierEmpService = {
           todayCalendar[i].jour.getMonth() == now.getMonth() &&
           todayCalendar[i].jour.getFullYear() == now.getFullYear()
         ) {
-          todayCalendar[i].heureArriv = new Date();
+          
           await todayCalendar[i].save();
           return todayCalendar[i];
         }
@@ -77,15 +77,16 @@ const CalandrierEmpService = {
           todayCalendar[i].heureArriv = new Date();
           await todayCalendar[i].save();
           return todayCalendar[i];
-        } else {
-          let calToday = new CalandrierEmp();
-          calToday.jour = new Date();
-          calToday.heureArriv = new Date();
-          calToday.employeId = id;
-          await calToday.save();
-          return calToday;
-        }
+
+
+        } 
       }
+      let calToday = new CalandrierEmp();
+      calToday.jour = new Date();
+      calToday.heureArriv = new Date();
+      calToday.employeId = id;
+      await calToday.save();
+      return calToday;
     } else {
       let calToday = new CalandrierEmp();
       calToday.jour = new Date();
@@ -97,11 +98,11 @@ const CalandrierEmpService = {
   },
 
   AjouterHeureDep: async (id: number, heureDep: Date) => {
-    let now = new Date();
+   try{ let now = new Date();
     let todayCalendar = await CalandrierEmp.findAll({
       where: { employeId: id },
     });
-   // console.log(todayCalendar);
+    console.log(todayCalendar);
 
     if (todayCalendar.length != 0) {
       for (let i = 0; i < todayCalendar.length; i++) {
@@ -112,24 +113,23 @@ const CalandrierEmpService = {
         ) {
           todayCalendar[i].heureDep = new Date();
           console.log(todayCalendar[i].heureDep.getTime());
-          console.log(todayCalendar[i]);
-          
+
           console.log(
             (todayCalendar[i].heureDep.getTime() -
               todayCalendar[i].heureArriv.getTime()) /
-              3600000
+            3600000
           );
           if (
             (todayCalendar[i].heureDep.getTime() -
               todayCalendar[i].heureArriv.getTime()) /
-              3600000 >
+            3600000 >
             8
           ) {
             todayCalendar[i].heureSup = Math.round(
               (todayCalendar[i].heureDep.getTime() -
                 todayCalendar[i].heureArriv.getTime()) /
-                3600000 -
-                8
+              3600000 -
+              8
             );
           } else {
             todayCalendar[i].heureSup = 0;
@@ -143,9 +143,14 @@ const CalandrierEmpService = {
       console.log("out2");
 
       return null;
+    }}
+    catch(e){
+      console.log(e);
+      return null;
+      
     }
   },
-
+  
   ModifierHeureCong: async (id: number, heureConge: number) => {
     const todayCalendar = await getEmployeCalendarFromDate(id);
     if (todayCalendar) {
